@@ -1,0 +1,19 @@
+body {
+    height: 100vh;
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: darkblue;
+}
+
+main {
+    background-color: blue;
+    flex-grow: 1;
+}
+
+footer {
+    background-color: lightblue;
+}
