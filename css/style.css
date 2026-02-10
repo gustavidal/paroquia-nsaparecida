@@ -6,7 +6,33 @@ body {
 }
 
 header {
-    background-color: darkblue;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+header nav ul {
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    color: #0f0f0f;
+    text-decoration: none;
+    margin-left: 20px;
 }
 
 main {
