@@ -6,10 +6,11 @@ body {
 }
 
 header {
-    background-color: lightblue;
+    background-color: #1E3A5F;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100px;
 }
 
 header img {
@@ -30,8 +31,7 @@ header nav ul {
 }
 
 header nav a {
-    color: #0f0f0f;
-    text-decoration: none;
+    color: #f0f0f0;
     margin-left: 20px;
 }
 
