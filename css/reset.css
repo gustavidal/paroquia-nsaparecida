@@ -13,11 +13,22 @@ ul, li, ol {
     list-style: none;
 }
 
+:root {
+    --main-color: #f0f0f0;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+}
+
 header {
     background-color: #1E3A5F;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100px;
 }
 
@@ -27,18 +38,15 @@ header img {
     border-radius: 50%;
 }
 
-header nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-header nav div {
-    display: flex;
-    align-items: center;
-}
-
 header nav a {
+    font-size: 1.2rem;
     color: #f0f0f0;
-    margin-left: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav a:hover {
+    background-color: #f0f0f0;
+    color: #1E3A5F;
 }
