@@ -15,6 +15,8 @@ ul, li, ol {
 
 :root {
     --main-color: #f0f0f0;
+    --secundary-color: #1E3A5F;
+    --tertiary-color: #C9A227;
 }
 
 body {
@@ -25,13 +27,13 @@ body {
 }
 
 header {
-    background-color: #1E3A5F;
+    background-color: var(--secundary-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 50px;
     height: 100px;
-    border-bottom: 2.5px solid #C9A227;
+    border-bottom: 2.5px solid var(--tertiary-color);
 }
 
 header img {
@@ -44,20 +46,20 @@ header .title {
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #f0f0f0;
+    color: var(--main-color);
 }
 
 header nav a {
     font-size: 16.5px;
-    color: #f0f0f0;
+    color: var(--main-color);
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 header nav a:hover {
-    background-color: #f0f0f0;
-    color: #1E3A5F;
+    background-color: var(--main-color);
+    color: var(--secundary-color);
 }
 
 main {
@@ -68,5 +70,10 @@ main {
 }
 
 footer {
-    background-color: #1E3A5F;
+    background-color: var(--secundary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-color);
+    border-top: 2.5px solid var(--tertiary-color);
 }
