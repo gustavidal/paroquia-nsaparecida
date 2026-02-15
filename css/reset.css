@@ -28,8 +28,10 @@ header {
     background-color: #1E3A5F;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0 50px;
     height: 100px;
+    border-bottom: 2.5px solid #C9A227;
 }
 
 header img {
@@ -38,8 +40,15 @@ header img {
     border-radius: 50%;
 }
 
+header .title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #f0f0f0;
+}
+
 header nav a {
-    font-size: 1.2rem;
+    font-size: 16.5px;
     color: #f0f0f0;
     padding: 10px 20px;
     border-radius: 5px;
@@ -49,4 +58,15 @@ header nav a {
 header nav a:hover {
     background-color: #f0f0f0;
     color: #1E3A5F;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    background-color: #1E3A5F;
 }
