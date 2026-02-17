@@ -1,0 +1,30 @@
+main .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 130px;
+    height: 470px;
+    width: 100%;
+    background-image: linear-gradient(to right, #162B44, #1E3A5F);
+    color: var(--main-color);
+}
+
+main .hero h2 {
+    font-size: 48px;
+    font-family: "Times New Roman", serif;
+}
+
+main .hero h3 {
+    font-size: 36px;
+}
+
+main .hero p {
+    font-size: 18px;
+}
+
+main .hero img {
+    width: 350px;
+    height: auto;
+    opacity: 0.8;
+}

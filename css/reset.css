@@ -24,6 +24,7 @@ body {
     background-color: var(--main-color);
     display: flex;
     flex-direction: column;
+    font-family: "Playfair Display", sans-serif;
 }
 
 header {
@@ -65,6 +66,7 @@ header nav a:hover {
 main {
     flex-grow: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -76,7 +78,7 @@ footer {
     justify-content: space-evenly;
     color: var(--main-color);
     border-top: 10px solid #162B44;
-    height: 155px;
+    height: 180px;
 }
 
 footer img {
@@ -97,6 +99,7 @@ footer .info {
 
 footer .info h2 {
     font-size: 18px;
+    padding-top: 7px;
 }
 
 footer .info p {
@@ -132,4 +135,8 @@ footer .social .media {
     display: flex;
     gap: 15px;
     padding: 10px 0px 0px 0px;
+}
+
+footer .social .copyright {
+    padding-bottom: 7px;
 }
