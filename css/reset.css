@@ -87,7 +87,7 @@ footer img {
     margin-right: 8px;
 }
 
-footer .info {
+footer #info {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -97,19 +97,19 @@ footer .info {
     border-top: 3px solid var(--tertiary-color);
 }
 
-footer .info h2 {
+footer #info h2 {
     font-size: 18px;
     padding-top: 7px;
 }
 
-footer .info p {
+footer #info p {
     font-size: 16px;
     gap: 7px;
     display: flex;
     align-items: center;
 }
 
-footer .info .data {
+footer #info .data {
     display: flex;
     gap: 15px;
     padding: 10px;
