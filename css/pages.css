@@ -1,0 +1,361 @@
+/* ===== PAGE HERO (páginas internas) ===== */
+.page-hero {
+    background: linear-gradient(135deg, #0d1f35, #1E3A5F);
+    color: var(--main-color);
+    text-align: center;
+    padding: 60px 40px;
+    border-bottom: 3px solid var(--tertiary-color);
+}
+
+.page-hero h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.page-hero p {
+    font-size: 16px;
+    opacity: 0.8;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--secundary-color);
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--tertiary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* ===== COMUNIDADES ===== */
+.comunidades-section {
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.comunidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.comunidade-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(30,58,95,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    border-bottom: 4px solid var(--tertiary-color);
+}
+
+.comunidade-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(30,58,95,0.18);
+}
+
+.comunidade-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.comunidade-card .card-body {
+    padding: 20px;
+}
+
+.comunidade-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    color: var(--secundary-color);
+    margin-bottom: 8px;
+}
+
+.comunidade-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.65;
+}
+
+.comunidade-card .card-address {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--tertiary-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ===== PASTORAIS ===== */
+.pastorais-section {
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.pastorais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.pastoral-card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 20px rgba(30,58,95,0.1);
+    border-top: 4px solid var(--tertiary-color);
+    transition: transform 0.25s;
+    text-align: center;
+}
+
+.pastoral-card:hover {
+    transform: translateY(-5px);
+}
+
+.pastoral-card .pastoral-icon {
+    font-size: 38px;
+    margin-bottom: 14px;
+}
+
+.pastoral-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    color: var(--secundary-color);
+    margin-bottom: 10px;
+}
+
+.pastoral-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.65;
+}
+
+/* ===== EVENTOS ===== */
+.eventos-section {
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.eventos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.evento-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 16px rgba(30,58,95,0.08);
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    border-left: 5px solid var(--tertiary-color);
+    transition: transform 0.2s;
+}
+
+.evento-card:hover {
+    transform: translateX(4px);
+}
+
+.evento-date {
+    min-width: 64px;
+    text-align: center;
+    background: var(--secundary-color);
+    color: var(--main-color);
+    border-radius: 10px;
+    padding: 10px 8px;
+    flex-shrink: 0;
+}
+
+.evento-date .day {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: "Playfair Display", serif;
+    line-height: 1;
+}
+
+.evento-date .month {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tertiary-color);
+    margin-top: 4px;
+}
+
+.evento-info h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    color: var(--secundary-color);
+    margin-bottom: 6px;
+}
+
+.evento-info p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.evento-info .evento-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* ===== MOBILE ===== */
+/* ===== iPad Mini (≤ 768px) ===== */
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 44px 32px;
+    }
+
+    .page-hero h2 {
+        font-size: 30px;
+    }
+
+    .comunidades-section,
+    .pastorais-section,
+    .eventos-section {
+        padding: 44px 32px;
+    }
+
+    .comunidades-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+
+    .pastorais-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .evento-card {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+/* ===== iPhone SE (≤ 375px) ===== */
+@media (max-width: 375px) {
+    .page-hero {
+        padding: 32px 16px;
+    }
+
+    .page-hero h2 {
+        font-size: 26px;
+    }
+
+    .page-hero p {
+        font-size: 13.5px;
+    }
+
+    .comunidades-section,
+    .pastorais-section,
+    .eventos-section {
+        padding: 32px 16px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    /* Comunidades */
+    .comunidade-card .card-body {
+        padding: 16px;
+    }
+
+    .comunidade-card h3 {
+        font-size: 16px;
+    }
+
+    .comunidade-card p,
+    .comunidade-card .card-address {
+        font-size: 13px;
+    }
+
+    /* Pastorais */
+    .pastorais-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pastoral-card {
+        padding: 22px 18px;
+    }
+
+    .pastoral-card .pastoral-icon {
+        font-size: 30px;
+    }
+
+    .pastoral-card h3 {
+        font-size: 16px;
+    }
+
+    .pastoral-card p {
+        font-size: 13px;
+    }
+
+    /* Eventos */
+    .evento-card {
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px 16px;
+    }
+
+    .evento-date {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        padding: 8px 14px;
+    }
+
+    .evento-date .day {
+        font-size: 20px;
+    }
+
+    .evento-info h3 {
+        font-size: 16px;
+    }
+
+    .evento-info p {
+        font-size: 13px;
+    }
+
+    .evento-info .evento-meta {
+        font-size: 12px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}

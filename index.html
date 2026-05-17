@@ -7,9 +7,7 @@
     <link rel="icon" href="./img/comunidades/logo-matriz.jpg" type="image/jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>Início | Paróquia Nossa Senhora Aparecida | Jandira</title>
@@ -21,27 +19,82 @@
             <img src="./img/comunidades/logo-matriz.jpg" alt="Logo da Paróquia Nossa Senhora Aparecida">
             <h1>Paróquia Nossa Senhora Aparecida</h1>
         </nav>
-        <nav>
-            <div>
-                <a href="./index.html">Início</a>
-                <a href="./pages/comunidades.html">Comunidades</a>
-                <a href="./pages/pastorais.html">Pastorais</a>
-                <a href="./pages/eventos.html">Eventos</a>
-                <a href="#info">Sobre</a>
-            </div>
+        <button class="hamburger" aria-label="Abrir menu" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="links" id="main-nav">
+            <a href="./index.html" class="active">Início</a>
+            <a href="./pages/comunidades.html">Comunidades</a>
+            <a href="./pages/pastorais.html">Pastorais</a>
+            <a href="./pages/eventos.html">Eventos</a>
+            <a href="#info">Sobre</a>
         </nav>
     </header>
+
     <main>
+        <!-- Hero -->
         <div class="hero">
-            <div>
+            <div class="hero-text">
                 <h2>Bem-vindo à</h2>
                 <h3>Paróquia Nossa Senhora <br> Aparecida</h3>
                 <p>Um lugar de fé, comunidade e esperança.</p>
+                <a href="#info" class="hero-btn">Saiba mais</a>
             </div>
-            <img src="./img/comunidades/logo-matriz.jpg" alt="Imagem da Paróquia Nossa Senhora Aparecida">
+            <div class="hero-img">
+                <img src="./img/comunidades/logo-matriz.jpg" alt="Imagem da Paróquia Nossa Senhora Aparecida">
+            </div>
         </div>
-        kwrfj   nkr
+
+        <!-- Horários de Missa -->
+        <section class="horarios-section">
+            <h2 class="section-title">Horários de Missa</h2>
+            <div class="horarios-grid">
+                <div class="horario-card">
+                    <h3>Quartas</h3>
+                    <div class="horario-time">16h00</div>
+                    <p>Missa com novena à Nossa Senhora do Perpétuo Socorro</p>
+                </div>
+                <div class="horario-card">
+                    <h3>Segundas, Terças, Quintas e Sextas</h3>
+                    <div class="horario-time">19h00</div>
+                    <p>Missa diária na Igreja Matriz</p>
+                </div>
+                <div class="horario-card">
+                    <h3>Sábados</h3>
+                    <div class="horario-time">19h00</div>
+                    <p>Missa vespertina na Igreja Matriz</p>
+                </div>
+                <div class="horario-card">
+                    <h3>Domingos</h3>
+                    <div class="horario-time">07h · 9h30 · 19h</div>
+                    <p>Missas dominicais na Igreja Matriz</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview das seções -->
+        <section class="sections-preview">
+            <h2 class="section-title">Conheça a Paróquia</h2>
+            <div class="cards-grid">
+                <a href="./pages/comunidades.html" class="preview-card">
+                    <div class="card-icon">⛪</div>
+                    <h3>Comunidades</h3>
+                    <p>Conheça as comunidades que fazem parte da nossa paróquia e encontre a mais próxima de você.</p>
+                </a>
+                <a href="./pages/pastorais.html" class="preview-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Pastorais</h3>
+                    <p>Participe das nossas pastorais e movimentos e coloque sua fé em ação a serviço do próximo.</p>
+                </a>
+                <a href="./pages/eventos.html" class="preview-card">
+                    <div class="card-icon">📅</div>
+                    <h3>Eventos</h3>
+                    <p>Fique por dentro das celebrações, festas e atividades da nossa comunidade paroquial.</p>
+                </a>
+            </div>
+        </section>
     </main>
+
     <footer>
         <section id="info">
             <h2>Paróquia Nossa Senhora Aparecida</h2>
@@ -51,27 +104,28 @@
                     <p><img src="./img/svg/mail.svg" alt="Ícone de email">Email: nsaparecidajandira@yahoo.com.br</p>
                 </div>
                 <div id="local">
-                    <p>Avenida Nossa Senhora Aparecida, 68<img src="./img/svg/location-pin.svg"
-                            alt="Ícone de localização"></p>
-                    <p>CEP: 06600-100 - Centro, Jandira, SP</p>
+                    <p><img src="./img/svg/location-pin.svg" alt="Ícone de localização">Av. Nossa Senhora Aparecida, 68</p>
+                    <p style="padding-left: 25px;">CEP: 06600-100 — Centro, Jandira, SP</p>
                 </div>
             </div>
         </section>
         <div class="social">
             <div class="media">
-                <a href="https://www.instagram.com/nsaparecidajandira/">
-                    <img src="./img/svg/instagram.svg" alt="Ícone do Instagram">
+                <a href="https://www.instagram.com/nsaparecidajandira/" aria-label="Instagram">
+                    <img src="./img/svg/instagram.svg" alt="Instagram">
                 </a>
-                <a href="tel:+551147072585">
-                    <img src="./img/svg/whatsapp.svg" alt="Ícone do WhatsApp">
+                <a href="tel:+551147072585" aria-label="WhatsApp">
+                    <img src="./img/svg/whatsapp.svg" alt="WhatsApp">
                 </a>
-                <a href="https://www.facebook.com/nsaparecidajandira">
-                    <img src="./img/svg/facebook.svg" alt="Ícone do Facebook">
+                <a href="https://www.facebook.com/nsaparecidajandira" aria-label="Facebook">
+                    <img src="./img/svg/facebook.svg" alt="Facebook">
                 </a>
             </div>
-            <p class="copyright">© 2026 - Paróquia Nossa Senhora Aparecida. Todos os direitos reservados.</p>
+            <p class="copyright">© 2026 · Paróquia Nossa Senhora Aparecida · Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script src="./main.js" defer></script>
 </body>
 
 </html>

@@ -1,30 +1,338 @@
+/* ===== HERO ===== */
 main .hero {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 130px;
-    height: 470px;
+    gap: 40px;
+    padding: 80px 100px;
+    min-height: 440px;
     width: 100%;
-    background-image: linear-gradient(to right, #162B44, #1E3A5F);
+    background-image: linear-gradient(135deg, #0d1f35 0%, #1E3A5F 60%, #2a5080 100%);
     color: var(--main-color);
+    position: relative;
+    overflow: hidden;
+}
+
+main .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,162,39,0.08) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+main .hero .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 1;
+    animation: fadeInLeft 0.9s ease both;
 }
 
 main .hero h2 {
-    font-size: 48px;
-    font-family: "Times New Roman", serif;
+    font-size: 20px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tertiary-color);
 }
 
 main .hero h3 {
-    font-size: 36px;
+    font-size: 42px;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 main .hero p {
-    font-size: 18px;
+    font-size: 17px;
+    font-weight: 300;
+    opacity: 0.85;
+    margin-top: 4px;
 }
 
-main .hero img {
-    width: 350px;
-    height: auto;
+main .hero .hero-btn {
+    margin-top: 10px;
+    display: inline-block;
+    background-color: var(--tertiary-color);
+    color: var(--dark-blue);
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 6px;
+    transition: background-color 0.25s, transform 0.2s;
+    width: fit-content;
+}
+
+main .hero .hero-btn:hover {
+    background-color: #e0b520;
+    transform: translateY(-2px);
+}
+
+main .hero .hero-img {
+    z-index: 1;
+    animation: fadeInRight 0.9s ease both;
+}
+
+main .hero .hero-img img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 0.92;
+    border: 4px solid var(--tertiary-color);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+
+/* ===== HORÁRIOS ===== */
+.horarios-section {
+    padding: 64px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    background-color: var(--main-color);
+}
+
+.section-title {
+    font-family: "Playfair Display", serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--secundary-color);
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--tertiary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.horario-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--tertiary-color);
+    transition: transform 0.2s;
+}
+
+.horario-card:hover {
+    transform: translateY(-4px);
+}
+
+.horario-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 17px;
+    color: var(--secundary-color);
+    margin-bottom: 10px;
+}
+
+.horario-card p {
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.horario-card .horario-time {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--tertiary-color);
+    font-family: "Playfair Display", serif;
+    margin-top: 6px;
+}
+
+/* ===== CARDS DE SEÇÕES ===== */
+.sections-preview {
+    padding: 64px 100px;
+    background: linear-gradient(135deg, #1E3A5F, #162B44);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+}
+
+.sections-preview .section-title {
+    color: var(--main-color);
+}
+
+.sections-preview .section-title::after {
+    background-color: var(--tertiary-color);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 960px;
+}
+
+.preview-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(201,162,39,0.3);
+    border-radius: 12px;
+    padding: 32px 24px;
+    color: var(--main-color);
+    text-align: center;
+    transition: background 0.25s, transform 0.2s;
+    cursor: pointer;
+}
+
+.preview-card:hover {
+    background: rgba(201,162,39,0.12);
+    transform: translateY(-4px);
+}
+
+.preview-card .card-icon {
+    font-size: 40px;
+    margin-bottom: 14px;
+}
+
+.preview-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--tertiary-color);
+}
+
+.preview-card p {
+    font-size: 14px;
     opacity: 0.8;
+    line-height: 1.65;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== iPad Mini (≤ 768px) ===== */
+@media (max-width: 768px) {
+    main .hero {
+        flex-direction: column;
+        padding: 56px 40px;
+        text-align: center;
+        min-height: auto;
+        gap: 32px;
+    }
+
+    main .hero .hero-btn {
+        margin: 0 auto;
+    }
+
+    main .hero .hero-img img {
+        width: 200px;
+        height: 200px;
+    }
+
+    main .hero h2 {
+        font-size: 16px;
+    }
+
+    main .hero h3 {
+        font-size: 32px;
+    }
+
+    main .hero p {
+        font-size: 15px;
+    }
+
+    .horarios-section,
+    .sections-preview {
+        padding: 48px 32px;
+    }
+
+    .horarios-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+}
+
+/* ===== iPhone SE (≤ 375px) ===== */
+@media (max-width: 375px) {
+    main .hero {
+        padding: 40px 20px;
+        gap: 24px;
+    }
+
+    main .hero h2 {
+        font-size: 13px;
+    }
+
+    main .hero h3 {
+        font-size: 26px;
+    }
+
+    main .hero p {
+        font-size: 14px;
+    }
+
+    main .hero .hero-img img {
+        width: 160px;
+        height: 160px;
+    }
+
+    main .hero .hero-btn {
+        font-size: 13px;
+        padding: 10px 22px;
+    }
+
+    .horarios-section,
+    .sections-preview {
+        padding: 36px 16px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .horario-card {
+        padding: 18px 16px;
+    }
+
+    .horario-card .horario-time {
+        font-size: 20px;
+    }
+
+    .preview-card {
+        padding: 24px 16px;
+    }
+
+    .preview-card .card-icon {
+        font-size: 32px;
+    }
+
+    .preview-card h3 {
+        font-size: 17px;
+    }
 }
