@@ -26,7 +26,7 @@
     font-family: "Playfair Display", serif;
     font-size: 30px;
     font-weight: 700;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     text-align: center;
     position: relative;
 }
@@ -85,7 +85,7 @@
 .comunidade-card h3 {
     font-family: "Playfair Display", serif;
     font-size: 18px;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     margin-bottom: 8px;
 }
 
@@ -144,7 +144,7 @@
 .pastoral-card h3 {
     font-family: "Playfair Display", serif;
     font-size: 18px;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     margin-bottom: 10px;
 }
 
@@ -190,7 +190,7 @@
 .evento-date {
     min-width: 64px;
     text-align: center;
-    background: var(--secundary-color);
+    background: var(--secondary-color);
     color: var(--main-color);
     border-radius: 10px;
     padding: 10px 8px;
@@ -215,7 +215,7 @@
 .evento-info h3 {
     font-family: "Playfair Display", serif;
     font-size: 18px;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     margin-bottom: 6px;
 }
 

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel PASCOM | Paróquia Nossa Senhora Aparecida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./admin.css">
+    <script src="./admin.js" defer></script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <div class="badge">PASCOM</div>
+            <h1>Painel de Administração</h1>
+        </div>
+        <div class="header-right">
+            <a href="./index.html" class="back-link">
+                <span>← Voltar ao site</span>
+            </a>
+            <span class="admin-tag">✦ Admin</span>
+        </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside>
+            <div class="sidebar-label">Gerenciar</div>
+            <div class="nav-item active" onclick="switchSection('eventos')">
+                <span class="nav-icon">📅</span> Eventos
+            </div>
+            <div class="nav-item" onclick="switchSection('pastorais')">
+                <span class="nav-icon">🤝</span> Pastorais
+            </div>
+            <div class="nav-item" onclick="switchSection('comunidades')">
+                <span class="nav-icon">⛪</span> Comunidades
+            </div>
+            <hr class="sidebar-divider">
+            <div class="sidebar-label">Configurações</div>
+            <div class="nav-item" onclick="switchSection('horarios')">
+                <span class="nav-icon">🕐</span> Horários de Missa
+            </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <!-- ===== EVENTOS ===== -->
+            <div class="section-panel active" id="panel-eventos">
+                <div class="page-header">
+                    <div>
+                        <h2>Eventos</h2>
+                        <p>Gerencie as celebrações, festas e atividades da paróquia</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('evento')">
+                        + Novo Evento
+                    </button>
+                </div>
+
+                <div class="stats-row" id="stats-eventos">
+                    <!-- preenchido via JS -->
+                </div>
+
+                <div class="items-grid" id="list-eventos"></div>
+            </div>
+
+            <!-- ===== PASTORAIS ===== -->
+            <div class="section-panel" id="panel-pastorais">
+                <div class="page-header">
+                    <div>
+                        <h2>Pastorais</h2>
+                        <p>Gerencie as pastorais e movimentos da paróquia</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('pastoral')">
+                        + Nova Pastoral
+                    </button>
+                </div>
+                <div class="items-grid" id="list-pastorais"></div>
+            </div>
+
+            <!-- ===== COMUNIDADES ===== -->
+            <div class="section-panel" id="panel-comunidades">
+                <div class="page-header">
+                    <div>
+                        <h2>Comunidades</h2>
+                        <p>Gerencie as comunidades vinculadas à paróquia</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('comunidade')">
+                        + Nova Comunidade
+                    </button>
+                </div>
+                <div class="items-grid" id="list-comunidades"></div>
+            </div>
+
+            <!-- ===== HORÁRIOS ===== -->
+            <div class="section-panel" id="panel-horarios">
+                <div class="page-header">
+                    <div>
+                        <h2>Horários de Missa</h2>
+                        <p>Atualize os horários das missas da Igreja Matriz e comunidades</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('horario')">
+                        + Novo Horário
+                    </button>
+                </div>
+                <div class="items-grid" id="list-horarios"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== MODAL EVENTO ===== -->
+    <div class="modal-overlay" id="modal-evento">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-evento-title">Novo Evento</h3>
+                <p>Preencha as informações do evento paroquial</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Dia</label>
+                        <input type="number" id="ev-dia" min="1" max="31" placeholder="12">
+                    </div>
+                    <div class="form-group">
+                        <label>Mês</label>
+                        <select id="ev-mes">
+                            <option value="">Selecione</option>
+                            <option>Jan</option>
+                            <option>Fev</option>
+                            <option>Mar</option>
+                            <option>Abr</option>
+                            <option>Mai</option>
+                            <option>Jun</option>
+                            <option>Jul</option>
+                            <option>Ago</option>
+                            <option>Set</option>
+                            <option>Out</option>
+                            <option>Nov</option>
+                            <option>Dez</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nome do Evento</label>
+                    <input type="text" id="ev-nome" placeholder="Ex: Festa de Nossa Senhora Aparecida">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="ev-desc" placeholder="Descreva brevemente o evento..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Horário</label>
+                        <input type="text" id="ev-hora" placeholder="Ex: 19h00">
+                    </div>
+                    <div class="form-group">
+                        <label>Local</label>
+                        <input type="text" id="ev-local" placeholder="Ex: Igreja Matriz">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('evento')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveEvento()">Salvar Evento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL PASTORAL ===== -->
+    <div class="modal-overlay" id="modal-pastoral">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-pastoral-title">Nova Pastoral</h3>
+                <p>Adicione ou edite uma pastoral ou movimento</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ícone (emoji)</label>
+                    <input type="text" id="pa-icone" placeholder="Ex: 👶 (cole um emoji)" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label>Nome da Pastoral</label>
+                    <input type="text" id="pa-nome" placeholder="Ex: Pastoral do Batismo">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="pa-desc" placeholder="Descreva a missão desta pastoral..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Dia de reunião</label>
+                        <input type="text" id="pa-dia" placeholder="Ex: Sábados">
+                    </div>
+                    <div class="form-group">
+                        <label>Horário</label>
+                        <input type="text" id="pa-hora" placeholder="Ex: 09h00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Responsável / Contato (opcional)</label>
+                    <input type="text" id="pa-contato" placeholder="Ex: Coordenadora Maria Silva">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('pastoral')">Cancelar</button>
+                <button class="btn btn-primary" onclick="savePastoral()">Salvar Pastoral</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL COMUNIDADE ===== -->
+    <div class="modal-overlay" id="modal-comunidade">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-comunidade-title">Nova Comunidade</h3>
+                <p>Cadastre uma comunidade vinculada à paróquia</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome da Comunidade</label>
+                    <input type="text" id="co-nome" placeholder="Ex: Comunidade São José">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="co-desc" placeholder="Descreva brevemente a comunidade..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Endereço</label>
+                    <input type="text" id="co-end" placeholder="Ex: Rua São José, s/n — Jandira">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefone (opcional)</label>
+                        <input type="tel" id="co-tel" placeholder="(11) 9xxxx-xxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Responsável (opcional)</label>
+                        <input type="text" id="co-resp" placeholder="Nome do coordenador">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('comunidade')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveComunidade()">Salvar Comunidade</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL HORÁRIO ===== -->
+    <div class="modal-overlay" id="modal-horario">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-horario-title">Novo Horário</h3>
+                <p>Adicione um horário de missa ou celebração</p>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Dias da Semana</label>
+                    <input type="text" id="ho-dias" placeholder="Ex: Domingos">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Horário(s)</label>
+                        <input type="text" id="ho-hora" placeholder="Ex: 07h · 9h30 · 19h">
+                    </div>
+                    <div class="form-group">
+                        <label>Local</label>
+                        <input type="text" id="ho-local" placeholder="Ex: Igreja Matriz">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Observação (opcional)</label>
+                    <input type="text" id="ho-obs" placeholder="Ex: Missa com novena">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('horario')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveHorario()">Salvar Horário</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CONFIRM DELETE ===== -->
+    <div class="confirm-overlay" id="confirm-overlay">
+        <div class="confirm-box">
+            <div class="confirm-icon">🗑️</div>
+            <h3>Confirmar exclusão</h3>
+            <p id="confirm-msg">Tem certeza que deseja excluir este item? Esta ação não pode ser desfeita.</p>
+            <div class="confirm-actions">
+                <button class="btn btn-ghost btn-sm" onclick="closeConfirm()">Cancelar</button>
+                <button class="btn-confirm-delete" id="confirm-btn">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+</body>
+</html>

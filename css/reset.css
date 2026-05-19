@@ -15,7 +15,7 @@ ul, li, ol {
 
 :root {
     --main-color: #f5f3ee;
-    --secundary-color: #1E3A5F;
+    --secondary-color: #1E3A5F;
     --tertiary-color: #C9A227;
     --dark-blue: #162B44;
     --text-dark: #1a1a2e;
@@ -38,7 +38,7 @@ body {
 
 /* ===== HEADER ===== */
 header {
-    background-color: var(--secundary-color);
+    background-color: var(--secondary-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -125,7 +125,7 @@ main {
 
 /* ===== FOOTER ===== */
 footer {
-    background-color: var(--secundary-color);
+    background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
     color: var(--main-color);
@@ -139,7 +139,7 @@ footer img {
     flex-shrink: 0;
 }
 
-footer #info {
+footer #contato {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,7 +148,7 @@ footer #info {
     gap: 6px;
 }
 
-footer #info h2 {
+footer #contato h2 {
     font-family: "Playfair Display", serif;
     font-size: 18px;
     font-weight: 700;
@@ -157,13 +157,13 @@ footer #info h2 {
     letter-spacing: 0.04em;
 }
 
-footer #info p {
+footer #contato p {
     font-size: 14.5px;
     display: flex;
     align-items: center;
 }
 
-footer #info .data {
+footer #contato .data {
     display: flex;
     gap: 40px;
     width: 100%;
@@ -178,6 +178,10 @@ footer #local {
     flex-direction: column;
     gap: 6px;
     text-align: left;
+}
+
+footer #local .cep {
+    padding-left: 25px;
 }
 
 footer .social {
@@ -286,16 +290,16 @@ footer .social .copyright {
     }
 
     /* Footer iPad Mini */
-    footer #info {
+    footer #contato {
         padding: 20px 24px 16px;
     }
 
-    footer #info h2 {
+    footer #contato h2 {
         font-size: 16px;
         text-align: center;
     }
 
-    footer #info .data {
+    footer #contato .data {
         flex-direction: column;
         align-items: center;
         gap: 12px;
@@ -308,7 +312,7 @@ footer .social .copyright {
         width: 100%;
     }
 
-    footer #info p {
+    footer #contato p {
         font-size: 13.5px;
         justify-content: center;
     }
@@ -352,15 +356,15 @@ footer .social .copyright {
     }
 
     /* Footer iPhone SE */
-    footer #info {
+    footer #contato {
         padding: 16px 14px 12px;
     }
 
-    footer #info h2 {
+    footer #contato h2 {
         font-size: 14px;
     }
 
-    footer #info p {
+    footer #contato p {
         font-size: 12.5px;
         flex-wrap: wrap;
         justify-content: center;
@@ -368,7 +372,7 @@ footer .social .copyright {
         gap: 4px;
     }
 
-    footer #info p img {
+    footer #contato p img {
         flex-shrink: 0;
     }
 

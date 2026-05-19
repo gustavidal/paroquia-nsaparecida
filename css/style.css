@@ -102,7 +102,7 @@ main .hero .hero-img img {
     font-family: "Playfair Display", serif;
     font-size: 32px;
     font-weight: 700;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     text-align: center;
     position: relative;
 }
@@ -142,7 +142,7 @@ main .hero .hero-img img {
 .horario-card h3 {
     font-family: "Playfair Display", serif;
     font-size: 17px;
-    color: var(--secundary-color);
+    color: var(--secondary-color);
     margin-bottom: 10px;
 }
 
