@@ -9,6 +9,13 @@
 a {
     text-decoration: none;
     color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:focus,
+a:active {
+    outline: none;
+    box-shadow: none;
 }
 
 :root {
