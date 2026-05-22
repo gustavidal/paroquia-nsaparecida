@@ -1,5 +1,5 @@
-// ===== STATE =====
-let state = {
+// ===== DEFAULTS =====
+const DEFAULTS = {
     eventos: [
         { id: 1, dia: '12', mes: 'Jun', nome: 'Festa Junina da Paróquia', desc: 'A tradicional festa junina com quadrilha, barracas e muita animação.', hora: '18h00', local: 'Igreja Matriz' },
         { id: 2, dia: '29', mes: 'Jun', nome: 'Solenidade de São Pedro e São Paulo', desc: 'Missa solene em honra aos apóstolos Pedro e Paulo.', hora: '19h00', local: 'Igreja Matriz' },
@@ -27,13 +27,78 @@ let state = {
     ],
 };
 
-let nextId = { eventos: 10, pastorais: 10, comunidades: 10, horarios: 10 };
+// ===== PERSISTÊNCIA =====
+const STORAGE_KEY = 'pascom_state';
+const NEXT_ID_KEY  = 'pascom_nextId';
+
+function saveToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(NEXT_ID_KEY, JSON.stringify(nextId));
+}
+
+function loadFromStorage() {
+    try {
+        const saved    = localStorage.getItem(STORAGE_KEY);
+        const savedIds = localStorage.getItem(NEXT_ID_KEY);
+        if (saved) {
+            return {
+                state:  JSON.parse(saved),
+                nextId: savedIds ? JSON.parse(savedIds) : { eventos: 10, pastorais: 10, comunidades: 10, horarios: 10 },
+            };
+        }
+    } catch (e) {
+        console.warn('Erro ao carregar dados salvos:', e);
+    }
+    return null;
+}
+
+// ===== STATE =====
+const _stored = loadFromStorage();
+
+let state     = _stored?.state  ?? JSON.parse(JSON.stringify(DEFAULTS));
+let nextId    = _stored?.nextId ?? { eventos: 10, pastorais: 10, comunidades: 10, horarios: 10 };
 let editingId = { eventos: null, pastorais: null, comunidades: null, horarios: null };
 let confirmCallback = null;
-let currentSection = 'eventos';
+let currentSection  = 'eventos';
+
+// ===== DOM HELPERS =====
+
+// Create element with optional classes and text
+function el(tag, classes = [], text = '') {
+    const e = document.createElement(tag);
+    if (classes.length) e.className = classes.join(' ');
+    if (text) e.textContent = text;
+    return e;
+}
+
+// Append multiple children to a parent
+function append(parent, ...children) {
+    children.forEach(c => { if (c) parent.appendChild(c); });
+    return parent;
+}
+
+// Clear all children from a container
+function clear(container) {
+    while (container.firstChild) container.removeChild(container.firstChild);
+}
+
+// Create a button with class, label and click handler
+function btn(classes, label, onClick) {
+    const b = el('button', classes, label);
+    b.addEventListener('click', onClick);
+    return b;
+}
+
+// ===== EMPTY STATE =====
+function makeEmptyState(icon, title, subtitle) {
+    const wrap  = el('div', ['empty-state']);
+    const ico   = el('div', ['es-icon'], icon);
+    const h3    = el('h3',  [], title);
+    const p     = el('p',   [], subtitle);
+    return append(wrap, ico, h3, p);
+}
 
 // ===== RENDER =====
-
 function renderAll() {
     renderEventos();
     renderPastorais();
@@ -43,137 +108,183 @@ function renderAll() {
 }
 
 function renderStats() {
-    const el = document.getElementById('stats-eventos');
-    const now = new Date();
-    const month = now.getMonth();
-    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-    const thisMonth = state.eventos.filter(e => e.mes === months[month]).length;
-    el.innerHTML = `
-        <div class="stat-card">
-            <div class="stat-num">${state.eventos.length}</div>
-            <div class="stat-label">Total de eventos</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-num">${thisMonth}</div>
-            <div class="stat-label">Este mês</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-num">${state.comunidades.length}</div>
-            <div class="stat-label">Comunidades</div>
-        </div>
-    `;
+    const container = document.getElementById('stats-eventos');
+    clear(container);
+
+    const now    = new Date();
+    const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    const thisMonth = state.eventos.filter(e => e.mes === months[now.getMonth()]).length;
+
+    const cards = [
+        [state.eventos.length,    'Total de eventos'],
+        [thisMonth,               'Este mês'],
+        [state.comunidades.length,'Comunidades'],
+    ];
+
+    cards.forEach(([num, label]) => {
+        const card = el('div', ['stat-card']);
+        append(card,
+            el('div', ['stat-num'],   String(num)),
+            el('div', ['stat-label'], label)
+        );
+        container.appendChild(card);
+    });
 }
 
 function renderEventos() {
-    const el = document.getElementById('list-eventos');
+    const container = document.getElementById('list-eventos');
+    clear(container);
+
     if (!state.eventos.length) {
-        el.innerHTML = emptyState('📅', 'Nenhum evento cadastrado', 'Clique em "+ Novo Evento" para adicionar.');
+        container.appendChild(makeEmptyState('📅', 'Nenhum evento cadastrado', 'Clique em "+ Novo Evento" para adicionar.'));
         return;
     }
-    el.innerHTML = state.eventos.map(ev => `
-        <div class="item-card">
-            <div class="item-date-badge">
-                <div class="day">${ev.dia}</div>
-                <div class="month">${ev.mes}</div>
-            </div>
-            <div class="item-body">
-                <h3>${ev.nome}</h3>
-                <p>${ev.desc}</p>
-                <div class="item-meta">
-                    <span>🕐 ${ev.hora}</span>
-                    <span>📍 ${ev.local}</span>
-                </div>
-            </div>
-            <div class="item-actions">
-                <button class="btn btn-edit" onclick="editEvento(${ev.id})">Editar</button>
-                <button class="btn btn-danger" onclick="confirmDelete('eventos', ${ev.id}, '${escHtml(ev.nome)}')">Excluir</button>
-            </div>
-        </div>
-    `).join('');
+
+    state.eventos.forEach(ev => {
+        // Date badge
+        const badge = el('div', ['item-date-badge']);
+        append(badge,
+            el('div', ['day'],   ev.dia),
+            el('div', ['month'], ev.mes)
+        );
+
+        // Meta row
+        const meta = el('div', ['item-meta']);
+        append(meta,
+            el('span', [], '🕐 ' + ev.hora),
+            el('span', [], '📍 ' + ev.local)
+        );
+
+        // Body
+        const body = el('div', ['item-body']);
+        append(body,
+            el('h3', [], ev.nome),
+            el('p',  [], ev.desc),
+            meta
+        );
+
+        // Actions
+        const actions = el('div', ['item-actions']);
+        append(actions,
+            btn(['btn', 'btn-edit'],   'Editar',  () => editEvento(ev.id)),
+            btn(['btn', 'btn-danger'], 'Excluir', () => confirmDelete('eventos', ev.id, ev.nome))
+        );
+
+        const card = el('div', ['item-card']);
+        append(card, badge, body, actions);
+        container.appendChild(card);
+    });
 }
 
 function renderPastorais() {
-    const el = document.getElementById('list-pastorais');
+    const container = document.getElementById('list-pastorais');
+    clear(container);
+
     if (!state.pastorais.length) {
-        el.innerHTML = emptyState('🤝', 'Nenhuma pastoral cadastrada', 'Clique em "+ Nova Pastoral" para adicionar.');
+        container.appendChild(makeEmptyState('🤝', 'Nenhuma pastoral cadastrada', 'Clique em "+ Nova Pastoral" para adicionar.'));
         return;
     }
-    el.innerHTML = state.pastorais.map(pa => `
-        <div class="item-card">
-            <div class="item-icon">${pa.icone || '🤝'}</div>
-            <div class="item-body">
-                <h3>${pa.nome}</h3>
-                <p>${pa.desc}</p>
-                <div class="item-meta">
-                    ${pa.dia ? `<span>📆 ${pa.dia}${pa.hora ? ' · ' + pa.hora : ''}</span>` : ''}
-                    ${pa.contato ? `<span>👤 ${pa.contato}</span>` : ''}
-                </div>
-            </div>
-            <div class="item-actions">
-                <button class="btn btn-edit" onclick="editPastoral(${pa.id})">Editar</button>
-                <button class="btn btn-danger" onclick="confirmDelete('pastorais', ${pa.id}, '${escHtml(pa.nome)}')">Excluir</button>
-            </div>
-        </div>
-    `).join('');
+
+    state.pastorais.forEach(pa => {
+        const icon = el('div', ['item-icon'], pa.icone || '🤝');
+
+        const meta = el('div', ['item-meta']);
+        if (pa.dia) meta.appendChild(el('span', [], '📆 ' + pa.dia + (pa.hora ? ' · ' + pa.hora : '')));
+        if (pa.contato) meta.appendChild(el('span', [], '👤 ' + pa.contato));
+
+        const body = el('div', ['item-body']);
+        append(body,
+            el('h3', [], pa.nome),
+            el('p',  [], pa.desc),
+            meta
+        );
+
+        const actions = el('div', ['item-actions']);
+        append(actions,
+            btn(['btn', 'btn-edit'],   'Editar',  () => editPastoral(pa.id)),
+            btn(['btn', 'btn-danger'], 'Excluir', () => confirmDelete('pastorais', pa.id, pa.nome))
+        );
+
+        const card = el('div', ['item-card']);
+        append(card, icon, body, actions);
+        container.appendChild(card);
+    });
 }
 
 function renderComunidades() {
-    const el = document.getElementById('list-comunidades');
+    const container = document.getElementById('list-comunidades');
+    clear(container);
+
     if (!state.comunidades.length) {
-        el.innerHTML = emptyState('⛪', 'Nenhuma comunidade cadastrada', 'Clique em "+ Nova Comunidade" para adicionar.');
+        container.appendChild(makeEmptyState('⛪', 'Nenhuma comunidade cadastrada', 'Clique em "+ Nova Comunidade" para adicionar.'));
         return;
     }
-    el.innerHTML = state.comunidades.map(co => `
-        <div class="item-card">
-            <div class="item-icon">⛪</div>
-            <div class="item-body">
-                <h3>${co.nome}</h3>
-                <p>${co.desc}</p>
-                <div class="item-meta">
-                    <span>📍 ${co.end}</span>
-                    ${co.tel ? `<span>📞 ${co.tel}</span>` : ''}
-                    ${co.resp ? `<span>👤 ${co.resp}</span>` : ''}
-                </div>
-            </div>
-            <div class="item-actions">
-                <button class="btn btn-edit" onclick="editComunidade(${co.id})">Editar</button>
-                <button class="btn btn-danger" onclick="confirmDelete('comunidades', ${co.id}, '${escHtml(co.nome)}')">Excluir</button>
-            </div>
-        </div>
-    `).join('');
+
+    state.comunidades.forEach(co => {
+        const icon = el('div', ['item-icon'], '⛪');
+
+        const meta = el('div', ['item-meta']);
+        meta.appendChild(el('span', [], '📍 ' + co.end));
+        if (co.tel)  meta.appendChild(el('span', [], '📞 ' + co.tel));
+        if (co.resp) meta.appendChild(el('span', [], '👤 ' + co.resp));
+
+        const body = el('div', ['item-body']);
+        append(body,
+            el('h3', [], co.nome),
+            el('p',  [], co.desc),
+            meta
+        );
+
+        const actions = el('div', ['item-actions']);
+        append(actions,
+            btn(['btn', 'btn-edit'],   'Editar',  () => editComunidade(co.id)),
+            btn(['btn', 'btn-danger'], 'Excluir', () => confirmDelete('comunidades', co.id, co.nome))
+        );
+
+        const card = el('div', ['item-card']);
+        append(card, icon, body, actions);
+        container.appendChild(card);
+    });
 }
 
 function renderHorarios() {
-    const el = document.getElementById('list-horarios');
+    const container = document.getElementById('list-horarios');
+    clear(container);
+
     if (!state.horarios.length) {
-        el.innerHTML = emptyState('🕐', 'Nenhum horário cadastrado', 'Clique em "+ Novo Horário" para adicionar.');
+        container.appendChild(makeEmptyState('🕐', 'Nenhum horário cadastrado', 'Clique em "+ Novo Horário" para adicionar.'));
         return;
     }
-    el.innerHTML = state.horarios.map(ho => `
-        <div class="item-card">
-            <div class="item-icon">🕐</div>
-            <div class="item-body">
-                <h3>${ho.dias}</h3>
-                <p>${ho.obs || 'Missa'} — ${ho.local}</p>
-                <div class="item-meta">
-                    <span>🕐 ${ho.hora}</span>
-                    <span>📍 ${ho.local}</span>
-                </div>
-            </div>
-            <div class="item-actions">
-                <button class="btn btn-edit" onclick="editHorario(${ho.id})">Editar</button>
-                <button class="btn btn-danger" onclick="confirmDelete('horarios', ${ho.id}, '${escHtml(ho.dias)}')">Excluir</button>
-            </div>
-        </div>
-    `).join('');
-}
 
-function emptyState(icon, title, subtitle) {
-    return `<div class="empty-state"><div class="es-icon">${icon}</div><h3>${title}</h3><p>${subtitle}</p></div>`;
+    state.horarios.forEach(ho => {
+        const icon = el('div', ['item-icon'], '🕐');
+
+        const meta = el('div', ['item-meta']);
+        append(meta,
+            el('span', [], '🕐 ' + ho.hora),
+            el('span', [], '📍 ' + ho.local)
+        );
+
+        const body = el('div', ['item-body']);
+        append(body,
+            el('h3', [], ho.dias),
+            el('p',  [], (ho.obs || 'Missa') + ' — ' + ho.local),
+            meta
+        );
+
+        const actions = el('div', ['item-actions']);
+        append(actions,
+            btn(['btn', 'btn-edit'],   'Editar',  () => editHorario(ho.id)),
+            btn(['btn', 'btn-danger'], 'Excluir', () => confirmDelete('horarios', ho.id, ho.dias))
+        );
+
+        const card = el('div', ['item-card']);
+        append(card, icon, body, actions);
+        container.appendChild(card);
+    });
 }
 
 // ===== NAVIGATION =====
-
 function switchSection(name) {
     currentSection = name;
     document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -185,12 +296,11 @@ function switchSection(name) {
 }
 
 // ===== MODAL =====
-
 function openModal(type) {
     clearForm(type);
     editingId[type + 's'] = null;
-    document.getElementById('modal-' + type + '-title').textContent =
-        { evento: 'Novo Evento', pastoral: 'Nova Pastoral', comunidade: 'Nova Comunidade', horario: 'Novo Horário' }[type];
+    const titles = { evento: 'Novo Evento', pastoral: 'Nova Pastoral', comunidade: 'Nova Comunidade', horario: 'Novo Horário' };
+    document.getElementById('modal-' + type + '-title').textContent = titles[type];
     document.getElementById('modal-' + type).classList.add('open');
 }
 
@@ -200,18 +310,17 @@ function closeModal(type) {
 
 function clearForm(type) {
     const ids = {
-        evento: ['ev-dia', 'ev-mes', 'ev-nome', 'ev-desc', 'ev-hora', 'ev-local'],
-        pastoral: ['pa-icone', 'pa-nome', 'pa-desc', 'pa-dia', 'pa-hora', 'pa-contato'],
-        comunidade: ['co-nome', 'co-desc', 'co-end', 'co-tel', 'co-resp'],
-        horario: ['ho-dias', 'ho-hora', 'ho-local', 'ho-obs'],
+        evento:    ['ev-dia', 'ev-mes', 'ev-nome', 'ev-desc', 'ev-hora', 'ev-local'],
+        pastoral:  ['pa-icone', 'pa-nome', 'pa-desc', 'pa-dia', 'pa-hora', 'pa-contato'],
+        comunidade:['co-nome', 'co-desc', 'co-end', 'co-tel', 'co-resp'],
+        horario:   ['ho-dias', 'ho-hora', 'ho-local', 'ho-obs'],
     };
-    (ids[type] || []).forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    (ids[type] || []).forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
 }
 
 // ===== SAVE =====
-
 function saveEvento() {
-    const nome = v('ev-nome'); const dia = v('ev-dia'); const mes = v('ev-mes');
+    const nome = v('ev-nome'), dia = v('ev-dia'), mes = v('ev-mes');
     if (!nome || !dia || !mes) { showToast('⚠️ Preencha nome, dia e mês.'); return; }
     const obj = { nome, dia, mes, desc: v('ev-desc'), hora: v('ev-hora'), local: v('ev-local') };
     if (editingId.eventos) {
@@ -223,6 +332,7 @@ function saveEvento() {
         state.eventos.push(obj);
         showToast('✅ Evento adicionado!');
     }
+    saveToStorage();
     closeModal('evento'); renderEventos(); renderStats();
 }
 
@@ -239,11 +349,12 @@ function savePastoral() {
         state.pastorais.push(obj);
         showToast('✅ Pastoral adicionada!');
     }
+    saveToStorage();
     closeModal('pastoral'); renderPastorais();
 }
 
 function saveComunidade() {
-    const nome = v('co-nome'); const end = v('co-end');
+    const nome = v('co-nome'), end = v('co-end');
     if (!nome || !end) { showToast('⚠️ Preencha nome e endereço.'); return; }
     const obj = { nome, desc: v('co-desc'), end, tel: v('co-tel'), resp: v('co-resp') };
     if (editingId.comunidades) {
@@ -255,11 +366,12 @@ function saveComunidade() {
         state.comunidades.push(obj);
         showToast('✅ Comunidade adicionada!');
     }
+    saveToStorage();
     closeModal('comunidade'); renderComunidades(); renderStats();
 }
 
 function saveHorario() {
-    const dias = v('ho-dias'); const hora = v('ho-hora');
+    const dias = v('ho-dias'), hora = v('ho-hora');
     if (!dias || !hora) { showToast('⚠️ Preencha dias e horário.'); return; }
     const obj = { dias, hora, local: v('ho-local'), obs: v('ho-obs') };
     if (editingId.horarios) {
@@ -271,14 +383,13 @@ function saveHorario() {
         state.horarios.push(obj);
         showToast('✅ Horário adicionado!');
     }
+    saveToStorage();
     closeModal('horario'); renderHorarios();
 }
 
 // ===== EDIT =====
-
 function editEvento(id) {
-    const ev = state.eventos.find(e => e.id === id);
-    if (!ev) return;
+    const ev = state.eventos.find(e => e.id === id); if (!ev) return;
     editingId.eventos = id;
     set('ev-dia', ev.dia); set('ev-mes', ev.mes); set('ev-nome', ev.nome);
     set('ev-desc', ev.desc); set('ev-hora', ev.hora); set('ev-local', ev.local);
@@ -287,8 +398,7 @@ function editEvento(id) {
 }
 
 function editPastoral(id) {
-    const pa = state.pastorais.find(p => p.id === id);
-    if (!pa) return;
+    const pa = state.pastorais.find(p => p.id === id); if (!pa) return;
     editingId.pastorais = id;
     set('pa-icone', pa.icone); set('pa-nome', pa.nome); set('pa-desc', pa.desc);
     set('pa-dia', pa.dia); set('pa-hora', pa.hora); set('pa-contato', pa.contato);
@@ -297,8 +407,7 @@ function editPastoral(id) {
 }
 
 function editComunidade(id) {
-    const co = state.comunidades.find(c => c.id === id);
-    if (!co) return;
+    const co = state.comunidades.find(c => c.id === id); if (!co) return;
     editingId.comunidades = id;
     set('co-nome', co.nome); set('co-desc', co.desc); set('co-end', co.end);
     set('co-tel', co.tel); set('co-resp', co.resp);
@@ -307,8 +416,7 @@ function editComunidade(id) {
 }
 
 function editHorario(id) {
-    const ho = state.horarios.find(h => h.id === id);
-    if (!ho) return;
+    const ho = state.horarios.find(h => h.id === id); if (!ho) return;
     editingId.horarios = id;
     set('ho-dias', ho.dias); set('ho-hora', ho.hora); set('ho-local', ho.local); set('ho-obs', ho.obs);
     document.getElementById('modal-horario-title').textContent = 'Editar Horário';
@@ -316,12 +424,13 @@ function editHorario(id) {
 }
 
 // ===== DELETE =====
-
 function confirmDelete(collection, id, nome) {
-    document.getElementById('confirm-msg').textContent = `Tem certeza que deseja excluir "${nome}"? Esta ação não pode ser desfeita.`;
+    document.getElementById('confirm-msg').textContent =
+        `Tem certeza que deseja excluir "${nome}"? Esta ação não pode ser desfeita.`;
     document.getElementById('confirm-overlay').classList.add('open');
     confirmCallback = () => {
         state[collection] = state[collection].filter(item => item.id !== id);
+        saveToStorage();
         renderAll();
         showToast('🗑️ Item excluído.');
         closeConfirm();
@@ -334,11 +443,19 @@ function closeConfirm() {
     confirmCallback = null;
 }
 
-// ===== UTILS =====
+// ===== RESET =====
+function resetToDefaults() {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(NEXT_ID_KEY);
+    state  = JSON.parse(JSON.stringify(DEFAULTS));
+    nextId = { eventos: 10, pastorais: 10, comunidades: 10, horarios: 10 };
+    renderAll();
+    showToast('🔄 Dados restaurados ao padrão.');
+}
 
+// ===== UTILS =====
 function v(id) { return (document.getElementById(id)?.value || '').trim(); }
-function set(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
-function escHtml(str) { return (str || '').replace(/'/g, "\\'"); }
+function set(id, val) { const e = document.getElementById(id); if (e) e.value = val || ''; }
 
 function showToast(msg) {
     const t = document.getElementById('toast');
@@ -347,7 +464,7 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// Close modals on overlay click
+// Fecha modais ao clicar no overlay
 ['modal-evento', 'modal-pastoral', 'modal-comunidade', 'modal-horario'].forEach(id => {
     document.getElementById(id).addEventListener('click', function (e) {
         if (e.target === this) this.classList.remove('open');
