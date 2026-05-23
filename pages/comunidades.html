@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/logo-matriz.jpg" type="image/jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <title>Comunidades | Paróquia Nossa Senhora Aparecida | Jandira</title>
+    <script src="../main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="title">
+            <img src="../img/logo-matriz.jpg" alt="Logo da Paróquia Nossa Senhora Aparecida">
+            <h1>Paróquia Nossa Senhora Aparecida</h1>
+        </nav>
+        <button class="hamburger" aria-label="Abrir menu" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="links" id="main-nav">
+            <a href="../index.html">Início</a>
+            <a href="../pages/comunidades.html" class="active">Comunidades</a>
+            <a href="../pages/pastorais.html">Pastorais</a>
+            <a href="../pages/eventos.html">Eventos</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-hero">
+            <h2>Comunidades</h2>
+            <p>Conheça as comunidades que compõem a nossa paróquia</p>
+        </div>
+
+        <section class="comunidades-section">
+            <h2 class="section-title">Nossas Comunidades</h2>
+            <div class="comunidades-grid" id="comunidades-grid">
+
+                <div class="comunidade-card">
+                    <img src="../img/logo-matriz.jpg" alt="Igreja Matriz">
+                    <div class="card-body">
+                        <h3>Igreja Matriz — Nossa Senhora Aparecida</h3>
+                        <p>A sede da paróquia, onde acontecem as principais celebrações e sacramentos da comunidade de
+                            Jandira.</p>
+                        <p class="card-address">📍 Av. Nossa Senhora Aparecida, 68 — Centro</p>
+                    </div>
+                </div>
+
+                <!-- Adicione mais comunidades aqui conforme necessário -->
+                <div class="comunidade-card">
+                    <img src="../img/logo-matriz.jpg" alt="Comunidade">
+                    <div class="card-body">
+                        <h3>Comunidade São José</h3>
+                        <p>Comunidade comprometida com a fé e a vida em família, realizando missas e atividades
+                            semanais.</p>
+                        <p class="card-address">📍 Rua São José, s/n — Jandira</p>
+                    </div>
+                </div>
+
+                <div class="comunidade-card">
+                    <img src="../img/logo-matriz.jpg" alt="Comunidade">
+                    <div class="card-body">
+                        <h3>Comunidade Santa Teresinha</h3>
+                        <p>Uma comunidade acolhedora, dedicada à evangelização e ao serviço ao próximo.</p>
+                        <p class="card-address">📍 Rua Santa Teresinha, s/n — Jandira</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <section id="contato">
+            <h2>Paróquia Nossa Senhora Aparecida</h2>
+            <div class="data">
+                <div id="contatos">
+                    <a href="tel:+551147072585">
+                        <p><img src="../svg/phone.svg" alt="Telefone">Telefone: (11) 4707-2585</p>
+                    </a>
+                    <a href="mailto:nsaparecidajandira@yahoo.com.br">
+                        <p><img src="../svg/mail.svg" alt="Email">Email: nsaparecidajandira@yahoo.com.br</p>
+                    </a>
+                </div>
+                <div id="local">
+                    <p><img src="../svg/location-pin.svg" alt="Localização">Av. Nossa Senhora Aparecida, 68</p>
+                    <p class="cep">CEP: 06600-100 — Centro, Jandira, SP</p>
+                </div>
+            </div>
+        </section>
+        <div class="social">
+            <div class="media">
+                <a href="https://www.instagram.com/nsaparecidajandira/" aria-label="Instagram">
+                    <img src="../svg/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://wa.me/?phone=551147072585&text=A%20paz%20de%20Cristo%21%0AVim%20pelo%20site%20da%20Par%C3%B3quia%20Nossa%20Senhora%20Aparecida."
+                    aria-label="WhatsApp">
+                    <img src="../svg/whatsapp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://www.facebook.com/nsaparecidajandira" aria-label="Facebook">
+                    <img src="../svg/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://www.youtube.com/@nsaparecidajandira" aria-label="YouTube">
+                    <img src="../svg/youtube.svg" alt="YouTube">
+                </a>
+            </div>
+            <p class="copyright">© 2026 · Paróquia Nossa Senhora Aparecida <br> Todos os direitos reservados</p>
+        </div>
+    </footer>
+</body>
+
+</html>

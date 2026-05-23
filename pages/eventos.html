@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/logo-matriz.jpg" type="image/jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <title>Eventos | Paróquia Nossa Senhora Aparecida | Jandira</title>
+    <script src="../main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="title">
+            <img src="../img/logo-matriz.jpg" alt="Logo da Paróquia Nossa Senhora Aparecida">
+            <h1>Paróquia Nossa Senhora Aparecida</h1>
+        </nav>
+        <button class="hamburger" aria-label="Abrir menu" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="links" id="main-nav">
+            <a href="../index.html">Início</a>
+            <a href="../pages/comunidades.html">Comunidades</a>
+            <a href="../pages/pastorais.html">Pastorais</a>
+            <a href="../pages/eventos.html" class="active">Eventos</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-hero">
+            <h2>Eventos</h2>
+            <p>Celebrações, festas e atividades da nossa comunidade paroquial</p>
+        </div>
+
+        <section class="eventos-section">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <div class="eventos-list" id="eventos-list">
+
+                <div class="evento-card">
+                    <div class="evento-date">
+                        <div class="day">12</div>
+                        <div class="month">Jun</div>
+                    </div>
+                    <div class="evento-info">
+                        <h3>Festa Junina da Paróquia</h3>
+                        <p>A tradicional festa junina da nossa comunidade com quadrilha, barracas e muita animação para
+                            toda a família.</p>
+                        <div class="evento-meta">
+                            <span>🕖 18h00</span>
+                            <span>📍 Igreja Matriz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evento-card">
+                    <div class="evento-date">
+                        <div class="day">29</div>
+                        <div class="month">Jun</div>
+                    </div>
+                    <div class="evento-info">
+                        <h3>Solenidade de São Pedro e São Paulo</h3>
+                        <p>Missa solene em honra aos apóstolos Pedro e Paulo, padroeiros da Igreja Universal.</p>
+                        <div class="evento-meta">
+                            <span>🕖 19h00</span>
+                            <span>📍 Igreja Matriz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evento-card">
+                    <div class="evento-date">
+                        <div class="day">12</div>
+                        <div class="month">Out</div>
+                    </div>
+                    <div class="evento-info">
+                        <h3>Festa de Nossa Senhora Aparecida</h3>
+                        <p>Solenidade da Padroeira do Brasil e da nossa paróquia, com missa solene, procissão e festa
+                            comunitária.</p>
+                        <div class="evento-meta">
+                            <span>🕙 09h00</span>
+                            <span>📍 Igreja Matriz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evento-card">
+                    <div class="evento-date">
+                        <div class="day">02</div>
+                        <div class="month">Nov</div>
+                    </div>
+                    <div class="evento-info">
+                        <h3>Dia de Finados — Missa pelos Falecidos</h3>
+                        <p>Celebração em memória de todos os fiéis defuntos, com missa e orações pelos que já partiram.
+                        </p>
+                        <div class="evento-meta">
+                            <span>🕖 07h00 e 19h00</span>
+                            <span>📍 Igreja Matriz</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <section id="contato">
+            <h2>Paróquia Nossa Senhora Aparecida</h2>
+            <div class="data">
+                <div id="contatos">
+                    <a href="tel:+551147072585">
+                        <p><img src="../svg/phone.svg" alt="Telefone">Telefone: (11) 4707-2585</p>
+                    </a>
+                    <a href="mailto:nsaparecidajandira@yahoo.com.br">
+                        <p><img src="../svg/mail.svg" alt="Email">Email: nsaparecidajandira@yahoo.com.br</p>
+                    </a>
+                </div>
+                <div id="local">
+                    <p><img src="../svg/location-pin.svg" alt="Localização">Av. Nossa Senhora Aparecida, 68</p>
+                    <p class="cep">CEP: 06600-100 — Centro, Jandira, SP</p>
+                </div>
+            </div>
+        </section>
+        <div class="social">
+            <div class="media">
+                <a href="https://www.instagram.com/nsaparecidajandira/" aria-label="Instagram">
+                    <img src="../svg/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://wa.me/?phone=551147072585&text=A%20paz%20de%20Cristo%21%0AVim%20pelo%20site%20da%20Par%C3%B3quia%20Nossa%20Senhora%20Aparecida."
+                    aria-label="WhatsApp">
+                    <img src="../svg/whatsapp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://www.facebook.com/nsaparecidajandira" aria-label="Facebook">
+                    <img src="../svg/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://www.youtube.com/@nsaparecidajandira" aria-label="YouTube">
+                    <img src="../svg/youtube.svg" alt="YouTube">
+                </a>
+            </div>
+            <p class="copyright">© 2026 · Paróquia Nossa Senhora Aparecida <br> Todos os direitos reservados</p>
+        </div>
+    </footer>
+</body>
+
+</html>
